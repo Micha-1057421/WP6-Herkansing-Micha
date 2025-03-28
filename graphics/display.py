@@ -53,14 +53,14 @@ class GameDisplay:
         self.ball.move()
         x, y = self.ball.get_position()
 
-        # Eenvoudige muur-botsing
+        # wall collision
         if x <= 10 + BALL_RADIUS or x >= WIDTH - 10 - BALL_RADIUS:
             self.ball.reflect_vertical()
         if y <= 10 + BALL_RADIUS or y >= HEIGHT - 10 - BALL_RADIUS:
             self.ball.reflect_horizontal()
 
     def draw_flippers(self):
-        # Linkerflipper
+        # Linker flipper
         base_left = (100, HEIGHT - 40)
         if self.left_flipper.active:
             end_left = (80, HEIGHT - 80)
@@ -68,7 +68,7 @@ class GameDisplay:
             end_left = (60, HEIGHT - 40)
         pygame.draw.line(self.screen, (255, 0, 0), base_left, end_left, 8)
 
-        # Rechterflipper
+        # Rechter flipper
         base_right = (WIDTH - 100, HEIGHT - 40)
         if self.right_flipper.active:
             end_right = (WIDTH - 80, HEIGHT - 80)
@@ -82,13 +82,13 @@ class GameDisplay:
         # Check linkerflipper
         if self.left_flipper.active:
             if 80 < x < 120 and HEIGHT - 60 < y < HEIGHT - 30:
-                print("💥 Collision with LEFT flipper!")
+                print("Collision with LEFT flipper!")
                 self.ball.reflect_horizontal()
 
         # Check rechterflipper
         if self.right_flipper.active:
             if WIDTH - 120 < x < WIDTH - 80 and HEIGHT - 60 < y < HEIGHT - 30:
-                print("💥 Collision with RIGHT flipper!")
+                print("Collision with RIGHT flipper!")
                 self.ball.reflect_horizontal()
     
     def draw_bumpers(self):
@@ -102,7 +102,7 @@ class GameDisplay:
             dy = by - bumper['y']
             distance = (dx ** 2 + dy ** 2) ** 0.5
             if distance < bumper['radius'] + 10: 
-                print(f"💥 Ball hit bumper {bumper['obj'].bumper_id}")
+                print(f"Ball hit bumper {bumper['obj'].bumper_id}")
                 bumper["obj"].hit("Player1")
                 self.ball.reflect_horizontal() 
 
@@ -115,9 +115,9 @@ class GameDisplay:
             y_offset += 25
 
         if self.score_panel.highscore_player:
-            hs_text = f"🏆 Highscore: {self.score_panel.highscore_player} ({self.score_panel.highscore})"
+            hs_text = f"Highscore: {self.score_panel.highscore_player} ({self.score_panel.highscore})"
             hs_surface = self.font.render(hs_text, True, (255, 215, 0)) 
-            self.screen.blit(hs_surface, (WIDTH // 2 - 100, 10))
+            self.screen.blit(hs_surface, (WIDTH // 2 - 50, 10))
 
     def run(self):
         while self.running:
