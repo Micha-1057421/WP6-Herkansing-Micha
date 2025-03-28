@@ -14,7 +14,7 @@ class InputHandler:
         thread.start()
 
     def _listen(self):
-        print("🎮 Input handler actief: druk op 'A' (links) of 'L' (rechts)")
+        print("Input handler actief: druk op 'A' (links) of 'L' (rechts)")
         while self.running:
             if keyboard.is_pressed('a'):
                 self.left_flipper.activate()

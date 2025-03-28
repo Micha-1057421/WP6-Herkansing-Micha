@@ -12,15 +12,15 @@ class Ball:
         dy = self.speed * math.sin(self.angle)
         self.x += dx
         self.y += dy
-        #print(f"⚪ Ball moved to ({int(self.x)}, {int(self.y)})")
+        print(f"Ball moved to ({int(self.x)}, {int(self.y)})")
 
     def reflect_horizontal(self):
         self.angle = -self.angle
-        print("↔️ Ball reflected horizontally")
+        print("Ball reflected horizontally")
 
     def reflect_vertical(self):
         self.angle = math.pi - self.angle
-        print("↕️ Ball reflected vertically")
+        print("Ball reflected vertically")
 
     def get_position(self):
         return int(self.x), int(self.y)

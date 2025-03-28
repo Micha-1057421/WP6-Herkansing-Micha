@@ -11,7 +11,7 @@ class ScorePanel:
             player_id, bumper_id, value = message.split(":")
             value = int(value)
         except ValueError:
-            print(f"⚠️ Ongeldig scorebericht: {message}")
+            print(f"Ongeldig scorebericht: {message}")
             return
 
         if player_id not in self.scores:
@@ -19,9 +19,9 @@ class ScorePanel:
 
         self.scores[player_id] += value
 
-        print(f"📈 {player_id} +{value} (via {bumper_id}) → Total: {self.scores[player_id]}")
+        print(f"{player_id} +{value} (via {bumper_id}) → Total: {self.scores[player_id]}")
 
         if self.scores[player_id] > self.highscore:
             self.highscore = self.scores[player_id]
             self.highscore_player = player_id
-            print(f"🏆 Nieuwe highscore: {self.highscore} door {self.highscore_player}")
+            print(f"Nieuwe highscore: {self.highscore} door {self.highscore_player}")

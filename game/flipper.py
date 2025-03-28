@@ -8,13 +8,13 @@ class Flipper:
         if not self.active:
             self.active = True
             self._publish_state()
-            print(f"🕹️ Flipper '{self.side}' ACTIVATED")
+            print(f"Flipper '{self.side}' ACTIVATED")
 
     def deactivate(self):
         if self.active:
             self.active = False
             self._publish_state()
-            print(f"🕹️ Flipper '{self.side}' released")
+            print(f"Flipper '{self.side}' released")
 
     def _publish_state(self):
         if self.mqtt_client:

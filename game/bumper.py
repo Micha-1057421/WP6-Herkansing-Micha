@@ -7,4 +7,4 @@ class Bumper:
     def hit(self, player_id="Player1"):
         message = f"{player_id}:{self.bumper_id}:{self.score_value}"
         self.mqtt_client.publish("score_update", message)
-        print(f"💥 Bumper '{self.bumper_id}' hit by {player_id}! Score +{self.score_value}")
+        print(f"Bumper '{self.bumper_id}' hit by {player_id}! Score +{self.score_value}")
