@@ -1,11 +1,16 @@
 import paho.mqtt.client as mqtt
-from config import MQTT_BROKER, MQTT_PORT, MQTT_KEEPALIVE, TOPICS
+from config import MQTT_BROKER, MQTT_PORT, MQTT_PASSWORD, MQTT_USERNAME, MQTT_KEEPALIVE, TOPICS, USE_TLS
 
 class MQTTClient:
     def __init__(self, client_id="flipperkast-client"):
         self.client = mqtt.Client(client_id=client_id)
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
+
+        if USE_TLS:
+            self.client.tls_set()
+        if MQTT_USERNAME and MQTT_PASSWORD:
+            self.client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
 
     def set_score_handler(self, handler_function):
         self.score_handler = handler_function
@@ -22,11 +27,11 @@ class MQTTClient:
                 client.subscribe(topic)
                 print(f"🔔 Subscribed to: {topic}")
         else:
-            print(f"❌ Failed to connect, return code {rc}")
+            print(f"Failed to connect, return code {rc}")
 
     def on_message(self, client, userdata, msg):
             message = msg.payload.decode()
-            print(f"[MQTT] 📩 Message received on topic '{msg.topic}': {message}")
+            print(f"[MQTT] Message received on topic '{msg.topic}': {message}")
 
             if msg.topic == TOPICS["score_update"] and hasattr(self, "score_handler"):
                 self.score_handler(message)
@@ -35,7 +40,7 @@ class MQTTClient:
         topic = TOPICS.get(topic_key)
         if topic:
             self.client.publish(topic, message)
-            print(f"[MQTT] 🚀 Published '{message}' to topic '{topic}'")
+            print(f"[MQTT] Published '{message}' to topic '{topic}'")
         else:
-            print(f"[MQTT] ❌ Invalid topic key: {topic_key}")
+            print(f"[MQTT] Invalid topic key: {topic_key}")
  
